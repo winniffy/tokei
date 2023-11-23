@@ -1,24 +1,79 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import bgImage from "./Assets/Images/bg-image.jpg";
+import watchlistIcon from "./Assets/Icons/archive-add.svg";
+import searchIcon from "./Assets/Icons/search-normal.svg";
+import "./App.css";
+import Navbar from "./Components/Navbar/Navbar";
+import Hero from "./Components/Hero/Hero";
+import MovieList from "./Components/Movies/MovieList";
+import { useEffect, useState } from "react";
+import Loading from "./Components/Loading";
+import Errorpage from "./Components/Errorpage";
+
+// http://www.omdbapi.com/?i=tt3896198&apikey=7ea4b9d
+
+const backgroundImg = {
+  backgroundImage: `url(${bgImage})`,
+};
 
 function App() {
+  const [search, setSearch] = useState("");
+  const [movieList, setMovieList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState("");
+
+  function handleChange(e) {
+    setSearch(e.target.value);
+  }
+
+  useEffect(
+    function () {
+      async function getData() {
+        try {
+          setIsError("");
+          if (search.length < 4) return;
+          setIsLoading(true);
+          const res = await fetch(
+            `http://www.omdbapi.com/?s=${search}&apikey=7ea4b9d`
+          );
+
+          if (!res.ok) {
+            throw new Error("network is not okay");
+          }
+
+          const data = await res.json();
+          if (data.Response === "False") throw new Error("movie not found");
+          setMovieList(data.Search);
+          console.log(data);
+
+          // console.log(isLoading);
+        } catch (err) {
+          setIsError(err.message);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+
+      getData();
+    },
+    [search]
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <header className="container" style={backgroundImg}>
+      <Navbar logo={logo} watchlistIcon={watchlistIcon} />
+      <Hero
+        logo={logo}
+        bgImage={bgImage}
+        watchlistIcon={watchlistIcon}
+        searchIcon={searchIcon}
+        search={search}
+        handleChange={handleChange}
+      />
+      {isError && <Errorpage isError={isError} />}
+      {isLoading && <Loading />}
+      {!isLoading && !isError && <MovieList movieList={movieList} />}
+    </header>
   );
 }
 

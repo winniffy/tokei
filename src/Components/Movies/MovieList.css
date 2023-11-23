@@ -1,0 +1,29 @@
+.movielist_container {
+    z-index: 1;
+    color: #fff;
+}
+
+.movielist_container-grid {
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 150px);
+    gap: 1rem;
+}
+
+.movielist_box {
+    border: 1px solid yellow;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(40, 0, 0, 0.50);
+    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.08);
+}
+
+.movie_poster {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 100px;
+    min-height: 100%;
+}
