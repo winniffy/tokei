@@ -3,12 +3,12 @@ import bgImage from "./Assets/Images/bg-image.jpg";
 import watchlistIcon from "./Assets/Icons/archive-add.svg";
 import searchIcon from "./Assets/Icons/search-normal.svg";
 import "./App.css";
+import { useEffect, useState } from "react";
 import Navbar from "./Components/Navbar/Navbar";
 import Hero from "./Components/Hero/Hero";
 import MovieList from "./Components/Movies/MovieList";
-import { useEffect, useState } from "react";
-import Loading from "./Components/Loading";
-import Errorpage from "./Components/Errorpage";
+import Loading from "./Components/Loading/Loading";
+import Errorpage from "./Components/Errorpage/Errorpage";
 
 // http://www.omdbapi.com/?i=tt3896198&apikey=7ea4b9d
 
@@ -21,10 +21,15 @@ function App() {
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState("");
+  // const [isInput, setIsInput] = useState(false);
 
   function handleChange(e) {
     setSearch(e.target.value);
   }
+
+  // function handleSearch(e) {
+  //   setIsInput(!isInput);
+  // }
 
   useEffect(
     function () {
@@ -45,8 +50,6 @@ function App() {
           if (data.Response === "False") throw new Error("movie not found");
           setMovieList(data.Search);
           console.log(data);
-
-          // console.log(isLoading);
         } catch (err) {
           setIsError(err.message);
         } finally {
@@ -70,8 +73,8 @@ function App() {
         search={search}
         handleChange={handleChange}
       />
-      {isError && <Errorpage isError={isError} />}
-      {isLoading && <Loading />}
+      {isError && <Errorpage isError={isError} logo={logo} />}
+      {isLoading && <Loading logo={logo} />}
       {!isLoading && !isError && <MovieList movieList={movieList} />}
     </header>
   );

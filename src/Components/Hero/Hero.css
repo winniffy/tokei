@@ -32,6 +32,7 @@ input {
     border: none;
     color: #fff;
     font-family: inherit;
+    margin-right: 8rem;
 }
 
 .search_icon-container {
@@ -43,4 +44,53 @@ input {
 
 .search_icon {
     width: 20px;
+}
+
+/* loader */
+.dot {
+    position: relative;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #fff;
+    animation: searching 1s infinite linear alternate;
+    animation-delay: 0.5s;
+}
+
+.dot::before, .dot::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+}
+
+.dot::before {
+    left: -10px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #fff;
+    animation: searching 1s infinite alternate;
+    animation-delay: 0s;
+}
+
+.dot::after {
+    left: 10px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #fff;
+    animation: searching 1s infinite alternate;
+    animation-delay: 1s;
+}
+
+@keyframes searching {
+    0% {
+        background-color: #fff;
+    }
+    50%, 100% {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
 }

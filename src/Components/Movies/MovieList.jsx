@@ -4,7 +4,6 @@ import "./MovieList.css";
 const MovieList = ({ movieList }) => {
   return (
     <div className="movielist_container">
-      MovieList
       <ul className="movielist_container-grid">
         {movieList?.map((items) => (
           <article key={items.imdbID} className="movielist_box">
