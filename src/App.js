@@ -36,7 +36,7 @@ function App() {
       async function getData() {
         try {
           setIsError("");
-          if (search.length < 4) return;
+          if (search.length < 3) return;
           setIsLoading(true);
           const res = await fetch(
             `http://www.omdbapi.com/?s=${search}&apikey=7ea4b9d`

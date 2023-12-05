@@ -13,9 +13,9 @@ const MovieList = ({ movieList }) => {
             />
             <div className="movie_details">
               <p>
-                {items.Title} ({items.Year})
+                <b>{items.Title}</b> ({items.Year})
               </p>
-              <p>{items.Runtime}</p>
+              {/* <p>{items.Runtime}</p> */}
             </div>
           </article>
         ))}

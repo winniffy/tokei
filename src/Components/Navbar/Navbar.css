@@ -53,3 +53,14 @@ ul, a {
 .search:hover {
     background-color: #FF0000a4;
 }
+
+
+@media(max-width: 500px) {
+    .search{
+        display: none;
+    }
+
+    input {
+        margin-right: 5rem;
+    }
+}

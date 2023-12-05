@@ -5,12 +5,6 @@ const Hero = ({ search, searchIcon, handleChange }) => {
   // search loading state
   const [isSearch, setSearch] = useState(false);
 
-  function handleSearchLoad(e) {
-    if (e.target) {
-      setSearch(!isSearch);
-    } else return isSearch;
-  }
-
   return (
     <section className="hero_content">
       <h1 className="hero_header">Your movie encyclopedia</h1>
@@ -21,7 +15,8 @@ const Hero = ({ search, searchIcon, handleChange }) => {
           placeholder="Search Movie or TV Series"
           value={search}
           onChange={handleChange}
-          onFocus={handleSearchLoad}
+          onFocus={() => setSearch(true)}
+          onBlur={() => setSearch(false)}
         />
 
         {isSearch && <div class="dot"></div>}
