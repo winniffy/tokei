@@ -1,0 +1,10 @@
+.details_container {
+    background-color: white;
+    color: red;
+    font-size: 4rem;
+    position: absolute;
+    top: 5rem;
+    left: 5rem;
+    z-index: 100;
+    padding: 3rem;
+}

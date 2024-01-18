@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Hero.css";
 
 const Hero = ({ search, searchIcon, handleChange }) => {
-  // search loading state
+  // search icon loading state
   const [isSearch, setSearch] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ const Hero = ({ search, searchIcon, handleChange }) => {
           onBlur={() => setSearch(false)}
         />
 
-        {isSearch && <div class="dot"></div>}
+        {isSearch && <div className="dot"></div>}
 
         <div className="search_icon-container">
           <img className="search_icon" src={searchIcon} alt="search icon" />

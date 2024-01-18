@@ -9,6 +9,7 @@ import Hero from "./Components/Hero/Hero";
 import MovieList from "./Components/Movies/MovieList";
 import Loading from "./Components/Loading/Loading";
 import Errorpage from "./Components/Errorpage/Errorpage";
+import MovieDetails from "./Components/MovieDetails/MovieDetails";
 
 // http://www.omdbapi.com/?i=tt3896198&apikey=7ea4b9d
 
@@ -16,30 +17,38 @@ const backgroundImg = {
   backgroundImage: `url(${bgImage})`,
 };
 
+const KEY = "7ea4b9d";
+
 function App() {
   const [search, setSearch] = useState("");
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState("");
-  // const [isInput, setIsInput] = useState(false);
+  // state for selecting a movie
+  const [selectedId, setSelectedId] = useState(null);
 
   function handleChange(e) {
     setSearch(e.target.value);
   }
 
-  // function handleSearch(e) {
-  //   setIsInput(!isInput);
-  // }
+  function handleSelectedMovie(id) {
+    setSelectedId(id);
+  }
 
+  function handleCloseMovie() {
+    setSelectedId(null);
+  }
+
+  // call api
   useEffect(
     function () {
       async function getData() {
         try {
           setIsError("");
-          if (search.length < 3) return;
+          if (search.length < 3 || search === "") return;
           setIsLoading(true);
           const res = await fetch(
-            `http://www.omdbapi.com/?s=${search}&apikey=7ea4b9d`
+            `http://www.omdbapi.com/?s=${search}&apikey=${KEY}`
           );
 
           if (!res.ok) {
@@ -49,7 +58,7 @@ function App() {
           const data = await res.json();
           if (data.Response === "False") throw new Error("movie not found");
           setMovieList(data.Search);
-          console.log(data);
+          // console.log(data);
         } catch (err) {
           setIsError(err.message);
         } finally {
@@ -75,7 +84,20 @@ function App() {
       />
       {isError && <Errorpage isError={isError} logo={logo} />}
       {isLoading && <Loading logo={logo} />}
-      {!isLoading && !isError && <MovieList movieList={movieList} />}
+      {!isLoading && !isError && (
+        <MovieList
+          movieList={movieList}
+          handleSelectedMovie={handleSelectedMovie}
+        />
+      )}
+      {selectedId && (
+        <MovieDetails
+          selectedId={selectedId}
+          handleCloseMovie={handleCloseMovie}
+          search={search}
+          key={KEY}
+        />
+      )}
     </header>
   );
 }

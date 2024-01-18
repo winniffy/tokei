@@ -1,21 +1,24 @@
 import React from "react";
 import "./MovieList.css";
 
-const MovieList = ({ movieList }) => {
+const MovieList = ({ movieList, handleSelectedMovie }) => {
   return (
     <div className="movielist_container">
       <ul className="movielist_container-grid">
-        {movieList?.map((items) => (
-          <article key={items.imdbID} className="movielist_box">
+        {movieList?.map((movie) => (
+          <article
+            key={movie.imdbID}
+            className="movielist_box"
+            onClick={() => handleSelectedMovie(movie.imdbID)}
+          >
             <div
               className="movie_poster"
-              style={{ backgroundImage: `url(${items.Poster})` }}
+              style={{ backgroundImage: `url(${movie.Poster})` }}
             />
             <div className="movie_details">
               <p>
-                <b>{items.Title}</b> ({items.Year})
+                <b>{movie.Title}</b> ({movie.Year})
               </p>
-              {/* <p>{items.Runtime}</p> */}
             </div>
           </article>
         ))}
