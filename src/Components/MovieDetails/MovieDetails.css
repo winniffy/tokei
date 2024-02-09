@@ -1,10 +1,175 @@
 .details_container {
-    background-color: white;
-    color: red;
-    font-size: 4rem;
     position: absolute;
-    top: 5rem;
-    left: 5rem;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #280000;
+    color: white;
     z-index: 100;
-    padding: 3rem;
+
+    display: flex;
+    /* align-items: center;    */
+    /* justify-content: space-between; */
+    flex-direction: column;
+}
+
+.loader {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.details_box {
+    padding: 1rem 5%;
+}
+
+.close_icon {
+    width: 45px;
+    cursor: pointer;
+}
+
+.details_title {
+    font-size: 1.8rem;
+    margin-block: 1rem;
+}
+
+.details_container-inner {
+    display: flex;
+    align-items:flex-start;
+    justify-content: space-between;
+}
+
+.details_container-inner_left {
+    width: 64%;
+}
+
+
+
+
+.movie_poster-img {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 30%;
+    height: 300px;
+}
+
+.movie_trailer-img {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 68%;
+    height: 300px;
+    position: relative;
+}
+
+.details_container-inner_left_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+}
+
+.details_container-inner_right {
+    width: 35%;
+}
+
+.synopsis_header {
+    background-color: #3F0000;
+    border-bottom: 2px solid #280000;
+    padding: 1rem 2rem;
+    margin-top: .5rem;
+    font-size: 1rem;
+}
+
+.synopsis_sub {
+    background-color: #3F0000;
+    padding: 1rem 2rem;
+    font-size: .85rem;
+    line-height: 1.5;
+}
+
+.details_container-inner_right-box {
+    background-color: #3F0000;
+    border-bottom: 2px solid #280000;
+    padding: 1rem 2rem;
+}
+
+.details_container-inner_right-heading {
+    font-size: 1rem;
+    margin-bottom: .5rem;
+}
+
+.details_container-inner_right-sub {
+    font-size: .85rem;
+}
+
+.directed {
+    margin-top: .5rem;
+    font-weight: 600;
+}
+
+.rate_text {
+    font-size: .85rem;
+    font-style: italic;
+}
+
+.rating_box {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.rating_box-header {
+    margin-bottom: .5rem;
+}
+
+.imdb_rating-flex {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+.imdb_rating-text {
+    margin-top: .2rem;
+}
+
+.imdb_logo {
+    height: 20px;
+}
+
+.add_watchlist-btn {
+    background-color: #510101;
+    border: none;
+    color: #fff;
+    padding: .65rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+
+    transition: all .2s ease-in-out;
+}
+
+.add_watchlist-btn:hover {
+    background-color: #720505;
+}
+
+.watch_trailer {
+    width: 100%;
+    background-color: #000000b9;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    gap: .7rem;
+    align-items: center;
+    padding: .5rem 1.5rem;
+    cursor: pointer;
+}
+
+.watch_trailer-text {
+    font-weight: 600;
+    font-size: 1.25rem;
 }

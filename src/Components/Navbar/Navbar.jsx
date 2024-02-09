@@ -1,23 +1,34 @@
 import React from "react";
 import "./Navbar.css";
 
-const Navbar = ({ logo, watchlistIcon }) => {
+const Navbar = ({
+  logo,
+  watchlistIcon,
+  handleWatchlist,
+  watchlistMovies,
+  watchlist,
+  children,
+}) => {
   return (
-    <nav>
-      <img src={logo} alt="tokei logo" />
+    <>
+      <nav>
+        <img src={logo} alt="tokei-logo" />
 
-      <ul className="navbuttons">
-        <button className="btn watchlist">
-          <img
-            src={watchlistIcon}
-            alt="watchlist icon"
-            className="watchlist_icon"
-          />
-          Watchlist
-        </button>
-        <button className="btn search">Search</button>
-      </ul>
-    </nav>
+        <ul className="navbuttons">
+          <button className="btn watchlist" onClick={handleWatchlist}>
+            <img
+              src={watchlistIcon}
+              alt="watchlist icon"
+              className="watchlist_icon"
+            />
+            Watchlist
+            <p>{!watchlistMovies.length ? "" : watchlistMovies.length}</p>
+          </button>
+        </ul>
+      </nav>
+
+      {watchlist && children}
+    </>
   );
 };
 

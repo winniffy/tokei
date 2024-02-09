@@ -1,12 +1,14 @@
 import React from "react";
 import "./MovieList.css";
+import { Link } from "react-router-dom";
 
 const MovieList = ({ movieList, handleSelectedMovie }) => {
   return (
     <div className="movielist_container">
       <ul className="movielist_container-grid">
         {movieList?.map((movie) => (
-          <article
+          <Link
+            to="/movieDetails"
             key={movie.imdbID}
             className="movielist_box"
             onClick={() => handleSelectedMovie(movie.imdbID)}
@@ -20,7 +22,7 @@ const MovieList = ({ movieList, handleSelectedMovie }) => {
                 <b>{movie.Title}</b> ({movie.Year})
               </p>
             </div>
-          </article>
+          </Link>
         ))}
       </ul>
     </div>

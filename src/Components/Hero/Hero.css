@@ -95,8 +95,12 @@ input {
     }
 }
 
-@media(max-width: 500px) {
+@media(max-width: 768px) {
     input {
         margin-right: 5rem;
+    }
+
+    .dot, .dot::before, .dot::after {
+        display: none;
     }
 }
