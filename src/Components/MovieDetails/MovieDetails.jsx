@@ -5,12 +5,13 @@ import BackArrow from "../../Assets/Icons/arrow-square-left.svg";
 import Navbar from "../Navbar/Navbar";
 import imdbLogo from "../../Assets/Icons/imdb-logo.png";
 import { RotatingLines } from "react-loader-spinner";
+import { useContext } from "react";
+import { WatchlistAlert } from "../../App";
 
 const MovieDetails = ({
   selectedId,
   handleCloseMovie,
   videoIcon,
-  handleAddMovie,
   watchlistMovies,
   logo,
   watchlist,
@@ -21,6 +22,8 @@ const MovieDetails = ({
 }) => {
   const [movie, setMovie] = useState({});
   const [watchedRating, setWatchedRating] = useState(0);
+
+  // state for watchlist alert
 
   const {
     Title: title,
@@ -36,6 +39,8 @@ const MovieDetails = ({
     Type: type,
   } = movie;
 
+  const { handleWatchlistAlert, handleAlreadyInWatchlist } =
+    useContext(WatchlistAlert);
   function addMovie() {
     // create new movie object
     const newMovie = {
@@ -52,6 +57,7 @@ const MovieDetails = ({
     // add movie to watchlist if array is empty
     if (!watchlistMovies.length) {
       watchlistMovies.push(newMovie);
+      handleWatchlistAlert();
     }
 
     // add new movie temporal state
@@ -60,15 +66,16 @@ const MovieDetails = ({
     watchlistMovies.map((movie) => {
       if (newMovie.selectedId === movie.selectedId) {
         addNewMovie = false;
+        handleAlreadyInWatchlist();
       }
       return addNewMovie;
     });
 
     if (addNewMovie) {
       watchlistMovies.push(newMovie);
+      handleWatchlistAlert();
     }
 
-    // handleAddMovie(newMovie);
     handleCloseMovie();
   }
 

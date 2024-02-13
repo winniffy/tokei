@@ -13,6 +13,9 @@ import Errorpage from "./Components/Errorpage/Errorpage";
 import MovieDetails from "./Components/MovieDetails/MovieDetails";
 import Watchlist from "./Components/Watchlist/Watchlist";
 import { Route, Routes } from "react-router-dom";
+import { createContext } from "react";
+
+export const WatchlistAlert = createContext();
 
 // import { useState } from "react";
 
@@ -23,7 +26,6 @@ const backgroundImg = {
 };
 
 const KEY = "7ea4b9d";
-
 function App() {
   const [search, setSearch] = useState("");
   const [movieList, setMovieList] = useState([]);
@@ -35,7 +37,32 @@ function App() {
   // state for showing watchlist
   const [watchlist, setWatchlist] = useState(false);
 
+  // state for watchlist movies array
   const [watchlistMovies, setWatchlistMovies] = useState([]);
+
+  // state for "added" watchlist alert
+  const [watchlistAlert, setWatchlistAlert] = useState(false);
+
+  // state for "already added" watchlist alert
+  const [alreadyWatchlistAlert, setAlreadyWatchlistAlert] = useState(false);
+
+  // handle "added" watchlist alert
+  function handleWatchlistAlert() {
+    setWatchlistAlert(true);
+
+    setTimeout(() => {
+      setWatchlistAlert(false);
+    }, 2500);
+  }
+
+  // handle "already added" watchlist alert
+  function handleAlreadyInWatchlist() {
+    setAlreadyWatchlistAlert(true);
+
+    setTimeout(() => {
+      setAlreadyWatchlistAlert(false);
+    }, 2500);
+  }
 
   // toggle watchlist function
   function handleWatchlist() {
@@ -52,11 +79,6 @@ function App() {
 
   function handleCloseMovie() {
     setSelectedId(null);
-  }
-
-  // add movie to watchlist
-  function handleAddMovie(movies) {
-    setWatchlistMovies([...watchlistMovies, movies]);
   }
 
   // call api
@@ -92,64 +114,72 @@ function App() {
   );
 
   return (
-    <header className="container" style={backgroundImg}>
-      <Navbar
-        logo={logo}
-        watchlist={watchlist}
-        watchlistIcon={watchlistIcon}
-        handleWatchlist={handleWatchlist}
-        watchlistMovies={watchlistMovies}
-      >
-        <Watchlist
+    <WatchlistAlert.Provider
+      value={{ handleWatchlistAlert, handleAlreadyInWatchlist }}
+    >
+      <header className="container" style={backgroundImg}>
+        <Navbar
+          logo={logo}
           watchlist={watchlist}
-          watchlistMovies={watchlistMovies}
-          setWatchlistMovies={setWatchlistMovies}
-          selectedId={selectedId}
+          watchlistIcon={watchlistIcon}
           handleWatchlist={handleWatchlist}
-        />
-      </Navbar>
+          watchlistMovies={watchlistMovies}
+        >
+          <Watchlist
+            watchlist={watchlist}
+            watchlistMovies={watchlistMovies}
+            setWatchlistMovies={setWatchlistMovies}
+            selectedId={selectedId}
+            handleWatchlist={handleWatchlist}
+          />
+        </Navbar>
 
-      <Hero
-        logo={logo}
-        bgImage={bgImage}
-        watchlistIcon={watchlistIcon}
-        searchIcon={searchIcon}
-        search={search}
-        handleChange={handleChange}
-      />
-      {isError && <Errorpage isError={isError} logo={logo} />}
-      {isLoading && <Loading logo={logo} />}
-      {!isLoading && !isError && (
-        <MovieList
-          movieList={movieList}
-          handleSelectedMovie={handleSelectedMovie}
+        <Hero
+          logo={logo}
+          bgImage={bgImage}
+          watchlistIcon={watchlistIcon}
+          searchIcon={searchIcon}
+          search={search}
+          handleChange={handleChange}
         />
-      )}
-
-      <Routes>
-        {selectedId && (
-          <Route
-            exact
-            path="/movieDetails"
-            element={
-              <MovieDetails
-                selectedId={selectedId}
-                handleCloseMovie={handleCloseMovie}
-                search={search}
-                videoIcon={videoIcon}
-                handleAddMovie={handleAddMovie}
-                watchlistMovies={watchlistMovies}
-                logo={logo}
-                watchlist={watchlist}
-                watchlistIcon={watchlistIcon}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-              />
-            }
+        {isError && <Errorpage isError={isError} logo={logo} />}
+        {isLoading && <Loading logo={logo} />}
+        {!isLoading && !isError && (
+          <MovieList
+            movieList={movieList}
+            handleSelectedMovie={handleSelectedMovie}
           />
         )}
-      </Routes>
-    </header>
+
+        {watchlistAlert && <p className="alert">Added to Watchlist</p>}
+        {alreadyWatchlistAlert && (
+          <p className="alert">Already in your Watchlist</p>
+        )}
+
+        <Routes>
+          {selectedId && (
+            <Route
+              exact
+              path="/movieDetails"
+              element={
+                <MovieDetails
+                  selectedId={selectedId}
+                  handleCloseMovie={handleCloseMovie}
+                  search={search}
+                  videoIcon={videoIcon}
+                  watchlistMovies={watchlistMovies}
+                  logo={logo}
+                  watchlist={watchlist}
+                  watchlistIcon={watchlistIcon}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                />
+              }
+            />
+          )}
+        </Routes>
+      </header>
+    </WatchlistAlert.Provider>
   );
 }
 

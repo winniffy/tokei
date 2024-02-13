@@ -20,6 +20,23 @@
     background: rgba(40, 0, 0, 0.85);
 }
 
+.alert {
+    position: absolute;
+    z-index: 150;
+    background-color: #FF0000;
+    color: white;
+    text-align: center;
+    padding-block: 1rem;
+    border-radius: 20px;
+    width: 30%;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    top: 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
 /* responsiveness */
 @media(max-width: 500px) {
     

@@ -5,7 +5,6 @@
   right: 5%;
   top: 10%;
   width: 700px;
-  height: 85vh;
   z-index: 120;
   border-radius: 20px;
   padding: 1rem 2rem;
@@ -26,6 +25,7 @@
     width: 100%;
     font-size: 1rem;
     font-style: italic;
+    padding-block: 3rem;
 }
 
 .watchlist_header-flex {
